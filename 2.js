@@ -21,4 +21,4 @@ while (currentFibNum < 4000000) {
 	}
 }
 
-console.log('Sum of even terms in the Fibonacci sequence whose values do not exceed four million:', sum);
+console.log('Problem 2. Sum of even terms in the Fibonacci sequence whose values do not exceed four million:', sum);

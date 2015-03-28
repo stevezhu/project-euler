@@ -14,4 +14,4 @@ for (var i = 1; i < 1000; i++) {
 	}
 }
 
-console.log('Sum of all multiples of 3 or 5 below 1000:', sum);
+console.log('Problem 1. Sum of all multiples of 3 or 5 below 1000:', sum);
