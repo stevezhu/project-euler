@@ -6,6 +6,8 @@
 	What is the largest prime factor of the number 600851475143 ?
  */
 
+var utils = require('./utils.js');
+
 var num = 600851475143;
 
 for (var i = 2; i < num;) {
@@ -16,4 +18,4 @@ for (var i = 2; i < num;) {
 	}
 }
 
-console.log('Problem 3. Largest prime factor of 600851475143:', num);
+utils.logAndCheckAnswer(3, 'Largest prime factor of 600851475143:', num, 6857);
