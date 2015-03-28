@@ -1,0 +1,16 @@
+{
+  "name": "project-euler",
+  "description": "Project Euler solutions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevezhu/project-euler.git"
+  },
+  "author": "Steve Zhu",
+  "bugs": {
+    "url": "https://github.com/stevezhu/project-euler/issues"
+  },
+  "homepage": "https://github.com/stevezhu/project-euler",
+  "dependencies": {
+    "bignumber.js": "2.0.5"
+  }
+}
