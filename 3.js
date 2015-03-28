@@ -8,9 +8,11 @@
 
 var num = 600851475143;
 
-for (var i = 2; i < num; i++) {
+for (var i = 2; i < num;) {
 	if (num % i === 0) {
 		num /= i;
+	} else {
+		++i;
 	}
 }
 
