@@ -10,17 +10,19 @@
 
 var utils = require('./utils.js');
 
-var sum = 0;
-
-var prevFibNum = 1;
-var currentFibNum = 1;
-while (currentFibNum < 4000000) {
-	var tempSum = currentFibNum + prevFibNum;
-	prevFibNum = currentFibNum;
-	currentFibNum = tempSum;
-	if (currentFibNum % 2 === 0) {
-		sum += currentFibNum;
+var solution = function(max) {
+	var sum = 0;
+	var prevFibNum = 1;
+	var currentFibNum = 1;
+	while (currentFibNum < max) {
+		var tempSum = currentFibNum + prevFibNum;
+		prevFibNum = currentFibNum;
+		currentFibNum = tempSum;
+		if (currentFibNum % 2 === 0) {
+			sum += currentFibNum;
+		}
 	}
-}
+	return sum;
+};
 
-utils.logAndCheckAnswer(2, 'Sum of even terms in the Fibonacci sequence whose values do not exceed four million:', sum, 4613732);
+utils.logAndCheckAnswer(2, 'Sum of even terms in the Fibonacci sequence whose values do not exceed four million:', solution(4000000), 4613732);

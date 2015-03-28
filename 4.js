@@ -14,14 +14,19 @@ var isPalindrome = function(num) {
 	return numString === numStringReversed;
 };
 
-var palindrome;
-for (var i = 100; i < 1000; i++) {
-	for (var j = i; j < 1000; j++) {
-		var product = i * j;
-		if ((!palindrome || product > palindrome) && isPalindrome(product)) {
-			palindrome = product;
+var solution = function(digits) {
+	var min = Math.pow(10, digits - 1);
+	var max = Math.pow(10, digits);
+	var palindrome;
+	for (var i = min; i < max; i++) {
+		for (var j = i; j < max; j++) {
+			var product = i * j;
+			if ((!palindrome || product > palindrome) && isPalindrome(product)) {
+				palindrome = product;
+			}
 		}
 	}
-}
+	return palindrome;
+};
 
-utils.logAndCheckAnswer(4, 'Largest palindrome made from the product of two 3-digit numbers:', palindrome, 906609);
+utils.logAndCheckAnswer(4, 'Largest palindrome made from the product of two 3-digit numbers:', solution(3), 906609);

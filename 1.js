@@ -8,12 +8,14 @@
 
 var utils = require('./utils.js');
 
-var sum = 0;
-
-for (var i = 1; i < 1000; i++) {
-	if (i % 3 === 0 || i % 5 === 0) {
-		sum += i;
+var solution = function(max) {
+	var sum = 0;
+	for (var i = 1; i < max; i++) {
+		if (i % 3 === 0 || i % 5 === 0) {
+			sum += i;
+		}
 	}
-}
+	return sum;
+};
 
-utils.logAndCheckAnswer(1, 'Sum of all multiples of 3 or 5 below 1000:', sum, 233168);
+utils.logAndCheckAnswer(1, 'Sum of all multiples of 3 or 5 below 1000:', solution(1000), 233168);
