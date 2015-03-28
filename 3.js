@@ -14,7 +14,7 @@ for (var i = 2; i < num;) {
 	if (num % i === 0) {
 		num /= i;
 	} else {
-		++i;
+		i++;
 	}
 }
 
