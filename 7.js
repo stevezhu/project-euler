@@ -12,7 +12,7 @@ var givenN = 10001;
 var answer = 104743;
 
 /***** BRUTE FORCE *****/
-/*
+
 var isPrime = function(num) {
 	for (var i = 2; i < num; i++) {
 		if (num % i === 0) {
@@ -22,7 +22,7 @@ var isPrime = function(num) {
 	return true;
 };
 
-var solution = function(nth) {
+var solution1 = function(nth) {
 	var prime;
 	for (var num = 2, count = 1; count <= nth; num++) {
 		if (isPrime(num)) {
@@ -33,8 +33,8 @@ var solution = function(nth) {
 	return prime;
 };
 
-utils.logAndCheckAnswer(7, '10,001st prime number:', solution(givenN), answer);
-*/
+//utils.logAndCheckAnswer(7, '10,001st prime number:', solution1(givenN), answer);
+
 
 /***************** FASTER METHODS *****************/
 
