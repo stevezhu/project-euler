@@ -58,15 +58,13 @@ module.exports = {
 				var primeFactors = {};
 				for (var i = start; i <= end; i++) {
 					var num = i;
-					for (var factor = 2; factor <= num;) {
+					for (var factor = 2; factor <= num; factor++) {
 						var count = countFactor(num, factor);
 						if (count > 0) {
 							num /= count * factor;
 							if (!_.has(primeFactors, factor) || count > primeFactors[factor]) {
 								primeFactors[factor] = count;
 							}
-						} else {
-							factor++;
 						}
 					}
 				}
