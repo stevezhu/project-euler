@@ -61,7 +61,7 @@ module.exports = {
 					for (var factor = 2; factor <= num; factor++) {
 						var count = countFactor(num, factor);
 						if (count > 0) {
-							num /= count * factor;
+							num /= Math.pow(factor, count);
 							if (!_.has(primeFactors, factor) || count > primeFactors[factor]) {
 								primeFactors[factor] = count;
 							}
