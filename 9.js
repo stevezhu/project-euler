@@ -38,6 +38,7 @@ module.exports = {
 	description: 'Product abc of Pythagorean triplet for which a + b + c = 1000',
 	answer: 31875000,
 	solutions: {
+		// tree of primitive Pythagorean triples
 		'matrix multiplication': {
 			fn: function(sum) {
 				var triples = new PriorityQueue(function(a, b) {
