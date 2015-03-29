@@ -7,6 +7,7 @@
  */
 
 var utils = require('./utils.js');
+var _ = require('lodash');
 
 var isDivisibleByRange = function(num, start, end) {
 	for (var i = end; i >= start; i--) {
@@ -16,17 +17,6 @@ var isDivisibleByRange = function(num, start, end) {
 	}
 	return true;
 };
-
-var solution1 = function() {
-	for (var num = 20; !isDivisibleByRange(num, 1, 20); num += 20) {} // add 20 each time because otherwise the number isn't divisible by 20
-	return num;
-};
-
-utils.logAndCheckAnswer(5, 'Smallest positive number that is evenly divisible by all of the numbers from 1 to 20:', solution1(), 232792560);
-
-/***************** ALTERNATE SOLUTION *****************/
-
-var _ = require('lodash');
 
 // count the number of times a number is divisible by a given factor
 var countFactor = function(num, factor) {
@@ -42,34 +32,58 @@ var countFactor = function(num, factor) {
 	return count;
 };
 
-var solution2 = function() {
-	// gets the greatest power of each prime factor for each number from 1 to 20
-	var primeFactors = {};
-	for (var i = 1; i <= 20; i++) {
-		var num = i;
-		for (var factor = 2; factor <= num;) {
-			var count = countFactor(num, factor);
-			if (count > 0) {
-				num /= count * factor;
-				if (!_.has(primeFactors, factor) || count > primeFactors[factor]) {
-					primeFactors[factor] = count;
+var givenRange = [1, 20];
+
+module.exports = {
+	problemNumber: 5,
+	description: 'Smallest positive number that is evenly divisible by all of the numbers from 1 to 20',
+	answer: 232792560,
+	solutions: {
+		'brute force': {
+			// range is an array in the form [start, end]
+			fn: function(range) {
+				var start = range[0];
+				var end = range[1];
+				var num = end;
+				while (!isDivisibleByRange(num, start, end)) {
+					num += end; // add end of range each time because otherwise the number isn't divisible by it
 				}
-			} else {
-				factor++;
+				return num;
+			},
+			run: function() {
+				return this.fn(givenRange);
+			}
+		},
+		'prime factorization': {
+			fn: function(range) {
+				var start = range[0];
+				var end = range[1];
+				// gets the greatest power of each prime factor for each number from 1 to 20
+				var primeFactors = {};
+				for (var i = start; i <= end; i++) {
+					var num = i;
+					for (var factor = 2; factor <= num;) {
+						var count = countFactor(num, factor);
+						if (count > 0) {
+							num /= count * factor;
+							if (!_.has(primeFactors, factor) || count > primeFactors[factor]) {
+								primeFactors[factor] = count;
+							}
+						} else {
+							factor++;
+						}
+					}
+				}
+				return _.reduce(primeFactors, function(result, value, key) {
+					return result * Math.pow(key, value);
+				}, 1);
+			},
+			run: function() {
+				return this.fn(givenRange);
 			}
 		}
 	}
-
-	return _.reduce(primeFactors, function(result, value, key) {
-		return result * Math.pow(key, value);
-	}, 1);
 };
 
-utils.logAndCheckAnswer(5, 'Smallest positive number that is evenly divisible by all of the numbers from 1 to 20, alternate solution:', solution2(), 232792560);
-
-if (process.env.BENCHMARK) {
-	utils.benchmarkSolutions({
-		'brute force': solution1,
-		'prime factorization': solution2
-	});
-}
+utils.logAndCheckSolutions(module.exports);
+utils.benchmarkSolutions(module.exports.solutions);

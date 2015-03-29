@@ -8,15 +8,30 @@
 
 var utils = require('./utils.js');
 
-var solution(num) {
-	for (var i = 2; i < num;) {
-		if (num % i === 0) {
-			num /= i;
-		} else {
-			i++;
+var givenNumber = 600851475143;
+
+module.exports = {
+	problemNumber: 3,
+	description: 'Largest prime factor of 600851475143',
+	answer: 6857,
+	solutions: {
+		'solution': {
+			fn: function(num) {
+				for (var i = 2; i < num;) {
+					if (num % i === 0) {
+						num /= i;
+					} else {
+						i++;
+					}
+				}
+				return num;
+			},
+			run: function() {
+				return this.fn(givenNumber);
+			}
 		}
 	}
-	return num;
 };
 
-utils.logAndCheckAnswer(3, 'Largest prime factor of 600851475143:', solution(600851475143), 6857);
+utils.logAndCheckSolutions(module.exports);
+utils.benchmarkSolutions(module.exports.solutions);
