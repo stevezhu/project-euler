@@ -15,6 +15,7 @@
     "lodash": "3.6.0",
     "benchmark": "1.0.0",
     "mathjs": "1.5.0",
-    "priorityqueuejs": "1.0.0"
+    "priorityqueuejs": "1.0.0",
+    "minimist": "1.1.1"
   }
 }
