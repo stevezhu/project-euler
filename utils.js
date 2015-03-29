@@ -11,7 +11,7 @@ module.exports = {
 		_.reduce(solutions, function(result, solution, name) {
 			return result.add(name, solution);
 		}, suite).on('cycle', function(event) {
-			console.log(String(event.target));
+			console.log(String(event.target), 'average', event.target.stats.mean * 1000 + 'ms');
 		}).on('complete', function() {
 			console.log('Fastest is ' + this.filter('fastest').pluck('name'));
 		}).run();
