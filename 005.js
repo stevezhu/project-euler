@@ -21,13 +21,9 @@ var isDivisibleByRange = function(num, start, end) {
 // count the number of times a number is divisible by a given factor
 var countFactor = function(num, factor) {
 	var count = 0;
-	while (factor <= num) {
-		if (num % factor === 0) {
-			num /= factor;
-			count++;
-		} else {
-			break;
-		}
+	while (factor <= num && num % factor === 0) {
+		num /= factor;
+		count++;
 	}
 	return count;
 };
