@@ -2,37 +2,42 @@ var _ = require('lodash');
 var Benchmark = require('benchmark');
 var suite = new Benchmark.Suite;
 
-module.exports = {
-	// problem == module.exports
+var self = module.exports = {
+	normalizeSolution: function(solution, problem) {
+		if (!_.has(solution, 'run') || solution.run !== false) {
+			if (_.has(solution, 'fn') && typeof solution.run !== 'function') {
+				solution.run = function() {
+					return this.fn.apply(this, problem.given);
+				};
+			} else {
+				solution.run = false;
+			}
+		}
+		return solution;
+	},
+	logAndCheckSolution: function(name, problem) {
+		var problemNumber = problem.problemNumber;
+		var description = problem.description;
+		var answer = problem.solutions[name].run();
+		var correctAnswer = problem.answer;
+		if (_.size(problem.solutions) > 1) {
+			description += ' : ' + name;
+		}
+		console.log(problemNumber + '.', description, answer, answer === correctAnswer ? '✓' : '✗');
+	},
 	logAndCheckSolutions: function(problem) {
-		var self = this;
 		_.each(problem.solutions, function(solution, name) {
-			if (_.has(solution, 'fn') && _.has(solution, 'run')) {
+			self.normalizeSolution(solution, problem);
+			if (solution.run) {
 				self.logAndCheckSolution(name, problem);
 			}
 		});
 	},
-	logAndCheckSolution: function(problemNumber, description, answer, correctAnswer) {
-		if (arguments.length === 2) { // if arguments are (solutionName, problem)
-			var solutionName = arguments[0];
-			var problem = arguments[1];
-			problemNumber = problem.problemNumber;
-			description = problem.description;
-			answer = problem.solutions[solutionName].run();
-			correctAnswer = problem.answer;
-			if (_.size(problem.solutions) > 1) {
-				description += ', ' + solutionName;
-			}
-			this.logAndCheckSolution(problemNumber, description + ':', answer, correctAnswer);
-		} else {
-			console.log(problemNumber + '.', description, answer, answer === correctAnswer ? '✓' : '✗');
-		}
-	},
-	// solutions = object in the form {name: solution}
-	benchmarkSolutions: function(solutions) {
+	benchmarkSolutions: function(problem) {
 		if (process.env.BENCHMARK) {
-			_.reduce(solutions, function(result, solution, name) {
-				if (_.has(solution, 'run')) {
+			_.reduce(problem.solutions, function(result, solution, name) {
+				self.normalizeSolution(solution, problem);
+				if (solution.run) {
 					return result.add(name, function() {
 						return solution.run();
 					});
