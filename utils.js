@@ -2,16 +2,30 @@ var _ = require('lodash');
 var Benchmark = require('benchmark');
 var suite = new Benchmark.Suite;
 
+/**
+ * runs if solution.run is true
+ * only benchmarks if solution.run and solution.benchmark are both true
+ */
 var self = module.exports = {
 	normalizeSolution: function(solution, problem) {
-		if (!_.has(solution, 'run') || solution.run !== false) {
-			if (_.has(solution, 'fn') && typeof solution.run !== 'function') {
+		// BENCHMARK
+		if (!_.has(solution, 'benchmark')) {
+			solution.benchmark = true;
+		}
+
+		// RUN
+		if (solution.run === false) {
+			return solution;
+		}
+		if (_.has(solution, 'fn')) {
+			// if you don't have run or you have run and it isn't a function
+			if (!_.has(solution, 'run') || typeof solution.run !== 'function') {
 				solution.run = function() {
 					return this.fn.apply(this, problem.given);
 				};
-			} else {
-				solution.run = false;
 			}
+		} else {
+			solution.run = false;
 		}
 		return solution;
 	},
@@ -37,7 +51,10 @@ var self = module.exports = {
 		if (process.env.BENCHMARK) {
 			_.reduce(problem.solutions, function(result, solution, name) {
 				self.normalizeSolution(solution, problem);
-				if (solution.run) {
+				if (solution.run && solution.benchmark) {
+					if (_.has(solution, 'benchmarkReset')) {
+						solution.benchmarkReset();
+					}
 					return result.add(name, function() {
 						return solution.run();
 					});
