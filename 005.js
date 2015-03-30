@@ -7,6 +7,7 @@
  */
 
 var utils = require('./utils.js');
+var factors = require('./factors.js');
 var _ = require('lodash');
 
 var isDivisibleByRange = function(num, start, end) {
@@ -16,16 +17,6 @@ var isDivisibleByRange = function(num, start, end) {
 		}
 	}
 	return true;
-};
-
-// count the number of times a number is divisible by a given factor
-var countFactor = function(num, factor) {
-	var count = 0;
-	while (factor <= num && num % factor === 0) {
-		num /= factor;
-		count++;
-	}
-	return count;
 };
 
 var self = module.exports = {
@@ -55,7 +46,7 @@ var self = module.exports = {
 				for (var i = start; i <= end; i++) {
 					var num = i;
 					for (var factor = 2; factor <= num; factor++) {
-						var count = countFactor(num, factor);
+						var count = factors.countFactor(num, factor);
 						if (count > 0) {
 							num /= Math.pow(factor, count);
 							if (!_.has(primeFactors, factor) || count > primeFactors[factor]) {
