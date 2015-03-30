@@ -16,11 +16,10 @@
 
 var utils = require('./utils.js');
 
-var givenN = 100;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 6,
 	description: 'Difference between the sum of the squares of the first one hundred natural numbers and the square of the sum',
+	given: [100],
 	answer: 25164150,
 	solutions: {
 		'brute force': {
@@ -34,9 +33,6 @@ module.exports = {
 				var squareOfSum = sum * sum;
 				var difference = Math.abs(sumOfSquares - squareOfSum);
 				return difference;
-			},
-			run: function() {
-				return this.fn(givenN);
 			}
 		},
 		'induction': {
@@ -45,13 +41,10 @@ module.exports = {
 				var squareOfSum = n * (n + 1) * (2 * n + 1) / 6;
 				var difference = Math.abs(sumOfSquares - squareOfSum);
 				return difference;
-			},
-			run: function() {
-				return this.fn(givenN);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

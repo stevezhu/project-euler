@@ -8,11 +8,10 @@
 
 var utils = require('./utils.js');
 
-var givenNumber = 600851475143;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 3,
 	description: 'Largest prime factor of 600851475143',
+	given: [600851475143],
 	answer: 6857,
 	solutions: {
 		'solution': {
@@ -25,13 +24,10 @@ module.exports = {
 					}
 				}
 				return num;
-			},
-			run: function() {
-				return this.fn(givenNumber);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

@@ -10,11 +10,10 @@
 
 var utils = require('./utils.js');
 
-var givenMax = 4000000;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 2,
 	description: 'Sum of even terms in the Fibonacci sequence whose values do not exceed four million',
+	given: [4000000],
 	answer: 4613732,
 	solutions: {
 		'solution': {
@@ -31,13 +30,10 @@ module.exports = {
 					}
 				}
 				return sum;
-			},
-			run: function() {
-				return this.fn(givenMax);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

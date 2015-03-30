@@ -14,11 +14,10 @@ var isPalindrome = function(num) {
 	return numString === numStringReversed;
 };
 
-var givenDigits = 3;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 4,
 	description: 'Largest palindrome made from the product of two 3-digit numbers',
+	given: [3],
 	answer: 906609,
 	solutions: {
 		'solution': {
@@ -35,13 +34,10 @@ module.exports = {
 					}
 				}
 				return palindrome;
-			},
-			run: function() {
-				return this.fn(givenDigits);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

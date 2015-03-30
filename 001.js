@@ -8,11 +8,10 @@
 
 var utils = require('./utils.js');
 
-var givenMax = 1000;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 1,
 	description: 'Sum of all multiples of 3 or 5 below 1000',
+	given: [1000],
 	answer: 233168,
 	solutions: {
 		'solution': {
@@ -24,13 +23,10 @@ module.exports = {
 					}
 				}
 				return sum;
-			},
-			run: function() {
-				return this.fn(givenMax);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

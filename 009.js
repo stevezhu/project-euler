@@ -32,10 +32,10 @@ var matrixC = [
 ];
 var matrices = [matrixA, matrixB, matrixC];
 
-var given = [1000];
-module.exports = {
+var self = module.exports = {
 	problemNumber: 9,
 	description: 'Product abc of Pythagorean triplet for which a + b + c = 1000',
+	given: [1000],
 	answer: 31875000,
 	solutions: {
 		// tree of primitive Pythagorean triples
@@ -56,13 +56,10 @@ module.exports = {
 					}
 				}
 				return sum % s === 0 ? math.prod.apply(null, triple.values) * math.pow(sum / s, 3) : undefined;
-			},
-			run: function() {
-				return this.fn.apply(this, given);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);

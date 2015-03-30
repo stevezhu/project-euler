@@ -28,11 +28,10 @@ var countFactor = function(num, factor) {
 	return count;
 };
 
-var givenRange = [1, 20];
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 5,
 	description: 'Smallest positive number that is evenly divisible by all of the numbers from 1 to 20',
+	given: [[1, 20]],
 	answer: 232792560,
 	solutions: {
 		'brute force': {
@@ -45,9 +44,6 @@ module.exports = {
 					num += end; // add end of range each time because otherwise the number isn't divisible by it
 				}
 				return num;
-			},
-			run: function() {
-				return this.fn(givenRange);
 			}
 		},
 		'prime factorization': {
@@ -71,13 +67,10 @@ module.exports = {
 				return _.reduce(primeFactors, function(result, value, key) {
 					return result * Math.pow(key, value);
 				}, 1);
-			},
-			run: function() {
-				return this.fn(givenRange);
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);
