@@ -7,6 +7,7 @@
  */
 
 var utils = require('./utils.js');
+var primes = require('./primes.js');
 var _ = require('lodash');
 
 var isPrime = function(num) {
@@ -18,11 +19,10 @@ var isPrime = function(num) {
 	return true;
 };
 
-var givenN = 10001;
-
-module.exports = {
+var self = module.exports = {
 	problemNumber: 7,
 	description: '10,001st prime number',
+	given: [10001],
 	answer: 104743,
 	solutions: {
 		// give number as a string
@@ -37,90 +37,38 @@ module.exports = {
 					}
 				}
 				return prime;
-			}/*,
-			run: function() {
-				return this.fn(givenN);
-			}*/
+			},
+			run: false
 		},
 		/***************** FASTER METHODS *****************/
-		'Sieve of Eratosthenes': {
-			fn: function(nth) {
-				var list = this.list || []; // j for prime, false for composite
-				var primes = this.primes || [undefined]; // there is no 0th prime;
-
-				var start = this.start || 2;
-				var limit = this.limit || Math.ceil(nth * Math.log(nth) + nth * Math.log(Math.log(nth)));
-
-				for (var i = start; i < limit; i++) {
-					if (_.isUndefined(list[i])) {
-						list[i] = i * i;
-						primes.push(i);
-						if (i <= Math.sqrt(limit)) {
-							// mark all multiples of i as composite
-							for (var j = list[i]; j < limit; list[i] = (j += i)) {
-								list[j] = false;
-							}
-						}
-					}
-				}
-				return primes[nth || 0]; // return undefined if nth is undefined
-			},
-			run: function() {
-				return this.fn(givenN);
+		'Sieve of Eratosthenes uncached': {
+			fn: function(n) {
+				return primes.nthPrime(n, {cache: false});
 			}
 		},
-		'incremental Sieve of Eratosthenes': {
-			limitInterval: 100,
-			list: [],
-			primes: [undefined],
-			sieve: function() {
-				return module.exports.solutions['Sieve of Eratosthenes'].fn.apply(this, arguments);
+		'Sieve of Eratosthenes cached': {
+			fn: function(n) {
+				return primes.nthPrime(n);
 			},
-			fn: function(nth) {
-				var list = this.list;
-				var primes = this.primes;
-
-				var start = 2;
-				var limit = this.limitInterval;
-
-				while (primes.length - 1 < nth) { // while the nth prime hasn't been reached yet
-					// mark all multiples of found primes as composite starting from where it left off
-					for (var p = 1; p < primes.length; p++) {
-						var i = primes[p];
-						for (var j = list[i]; j < limit; list[i] = (j += i)) {
-							list[j] = false;
-						}
-					}
-					this.sieve.call({
-						start: start,
-						limit: limit,
-						list: list,
-						primes: primes
-					});
-					// increase limit
-					start = limit;
-					limit += this.limitInterval;
-				}
-				return primes[nth];
-			},
-			run: function() {
-				return this.fn(givenN);
+			benchmarkReset: function() {
+				primes.resetCache();
 			}
 		},
-		'incremental Sieve without cache': {
-			run: function() {
-				var incrementalSieve = module.exports.solutions['incremental Sieve of Eratosthenes'];
-				var context = {
-					limitInterval: incrementalSieve.limitInterval,
-					list: [],
-					primes: [undefined],
-					sieve: incrementalSieve.sieve
-				};
-				return incrementalSieve.fn.call(context, givenN);
+		'incremental sieve cached': {
+			fn: function(n) {
+				var limitInterval = 100;
+				var primesList = [];
+				for (var limit = limitInterval; primesList.length < n + 1; limit += limitInterval) {
+					primesList = primes.sieve(limit);
+				}
+				return primesList[n];
+			},
+			benchmarkReset: function() {
+				primes.resetCache();
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);
