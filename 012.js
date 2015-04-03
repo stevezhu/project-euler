@@ -21,57 +21,54 @@
  */
 
 var utils = require('./utils.js');
+var factors = require('./factors.js');
+var primes = require('./primes.js');
 
-// also used in problem 5
-var countFactor = function(num, factor) {
-	var count = 0;
-	while (factor <= num && num % factor === 0) {
-		num /= factor;
-		count++;
-	}
-	return count;
-};
-
-// loops through each prime factor of the given number
-var eachPrimeFactor = function(num, fn) {
-	for (var factor = 2; factor <= num; factor++) {
-		var count = countFactor(num, factor);
-		if (count > 0) {
-			fn(factor, count);
-			num /= Math.pow(factor, count);
-		}
-	}
-};
-
-var countDivisors = function(num) {
-	var divisors = 1;
-	eachPrimeFactor(num, function(factor, count) {
-		divisors *= count + 1;
-	});
-	return divisors;
-};
-
-var given = [500];
-module.exports = {
+var self = module.exports = {
 	problemNumber: 12,
 	description: 'First triangle number to have over five hundred divisors',
 	answer: 76576500,
+	given: [500],
 	solutions: {
 		'prime factorization': {
 			fn: function(numDivisors) {
 				var count, num = 1, i = 2;
 				// loop through triangle numbers
-				while ((count = countDivisors(num)) <= numDivisors) {
+				while ((count = factors.countFactors(num)) <= numDivisors) {
 					num += i++;
 				}
 				return num;
-			},
-			run: function() {
-				return this.fn.apply(this, [500]);
+			}
+		},
+		'prime factorization optimization using rough lower bound': {
+			fn: function(numDivisors) {
+				var halfNumDivisors = numDivisors / 2;
+				var lowerBound = Math.ceil(halfNumDivisors) * Math.floor(halfNumDivisors + 1);
+				var closestIndex = Math.floor((Math.sqrt(1 + 8 * lowerBound) - 1) / 2); // quadratic formula
+				lowerBound = (closestIndex * (closestIndex + 1)) / 2;
+				var count, num = lowerBound, i = closestIndex + 1;
+				// loop through triangle numbers
+				while ((count = factors.countFactors(num)) <= numDivisors) {
+					num += i++;
+				}
+				return num;
+			}
+		},
+		'prime factorization optimization using lower bound': {
+			fn: function(numDivisors) {
+				var lowerBound = factors.smallestNumberWithNFactors(numDivisors);
+				var closestIndex = Math.floor((Math.sqrt(1 + 8 * lowerBound) - 1) / 2); // quadratic formula
+				lowerBound = (closestIndex * (closestIndex + 1)) / 2;
+				var count, num = lowerBound, i = closestIndex + 1;
+				// loop through triangle numbers
+				while ((count = factors.countFactors(num)) <= numDivisors) {
+					num += i++;
+				}
+				return num;
 			}
 		}
 	}
 };
 
-utils.logAndCheckSolutions(module.exports);
-utils.benchmarkSolutions(module.exports.solutions);
+utils.logAndCheckSolutions(self);
+utils.benchmarkSolutions(self);
