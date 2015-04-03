@@ -41,6 +41,7 @@ var self = module.exports = {
 		if (_.size(problem.solutions) > 1) {
 			description += ' : ' + name;
 		}
+		description += ' :';
 		console.log(answer === correctAnswer ? CORRECT : INCORRECT, problemNumber + '.', description, answer);
 	},
 	logAndCheckSolutions: function(problem) {
