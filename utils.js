@@ -1,6 +1,10 @@
 var _ = require('lodash');
+var chalk = require('chalk');
 var Benchmark = require('benchmark');
 var suite = new Benchmark.Suite;
+
+var CORRECT = chalk.green('✓');
+var INCORRECT = chalk.red('✗');
 
 /**
  * runs if solution.run is true
@@ -37,7 +41,7 @@ var self = module.exports = {
 		if (_.size(problem.solutions) > 1) {
 			description += ' : ' + name;
 		}
-		console.log(problemNumber + '.', description, answer, answer === correctAnswer ? '✓' : '✗');
+		console.log(answer === correctAnswer ? CORRECT : INCORRECT, problemNumber + '.', description, answer);
 	},
 	logAndCheckSolutions: function(problem) {
 		_.each(problem.solutions, function(solution, name) {
