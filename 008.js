@@ -47,8 +47,8 @@ var self = module.exports = {
 					console.log('The number of adjacent digits can not be greater than the number of digits in the number')
 					return;
 				}
-				var product = undefined;
-				var greatestProduct;
+				var product;
+				var greatestProduct = 0;
 				for (var i = numDigits - 1; i < number.length; i++) {
 					var prevDigit = parseInt(number[i - numDigits]);
 					var nextDigit = parseInt(number[i]);
@@ -60,7 +60,7 @@ var self = module.exports = {
 					} else {
 						product = product / prevDigit * nextDigit;
 					}
-					if (_.isUndefined(greatestProduct) || product > greatestProduct) {
+					if (product > greatestProduct) {
 						greatestProduct = product;
 					}
 				}
