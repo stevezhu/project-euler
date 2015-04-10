@@ -140,9 +140,9 @@ var self = module.exports = {
 		// assumes square grid
 		'one diagonal loop': {
 			fn: function(grid, numAdj) {
-				var sideLength = grid.length;
-
 				var greatestProduct = 0;
+
+				var sideLength = grid.length;
 
 				// horizontal
 				for (var i = 0; i < sideLength; i++) {
@@ -188,6 +188,55 @@ var self = module.exports = {
 					}
 				}
 
+				return greatestProduct;
+			}
+		},
+		/**
+		 * Search through the grid in this formation
+		 *
+		 *             x x x x
+		 *           x x x
+		 *         x   x   x
+		 *       x     x     x
+		 */
+		'search all directions': {
+			fn: function(grid, numAdj) {
+				var greatestProduct = 0;
+
+				var colLength = grid.length;
+				var rowLength = grid[0].length;
+				for (var i = 0; i < colLength; i++) {
+					for (var j = 0; j < rowLength; j++) {
+						if (i <= colLength - numAdj) {
+							if (j <= rowLength - numAdj) {
+								var horizontal = 1;
+								var vertical = 1;
+								var diagonal = 1;
+								for (var a = 0, b = 0; a < numAdj && b < numAdj; a++, b++) {
+									horizontal *= grid[i][j + b];
+									vertical *= grid[i + a][j];
+									diagonal *= grid[i + a][j + b];
+								}
+								var products = [horizontal, vertical, diagonal];
+								for (var p = 0; p < products.length; p++) {
+									var product = products[p];
+									if (product > greatestProduct) {
+										greatestProduct = product;
+									}
+								}
+							}
+							if (j >= numAdj - 1) { // other direction diagonal
+								var product = 1;
+								for (var a = 0, b = 0; a < numAdj && b > -numAdj; a++, b--) {
+									product *= grid[i + a][j + b];
+								}
+								if (product > greatestProduct) {
+									greatestProduct = product;
+								}
+							}
+						}
+					}
+				}
 				return greatestProduct;
 			}
 		}
