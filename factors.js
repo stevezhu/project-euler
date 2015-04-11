@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var primes = require('./primes.js');
 
-self = module.exports = {};
+var self = module.exports = {};
 
 /**
  * @param  {Number} n

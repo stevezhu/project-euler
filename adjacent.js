@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var math = require('mathjs');
 
-self = module.exports = {
+var self = module.exports = {
 	greatestProduct: function(arr, numAdj) {
 		var greatestProduct;
 		for (var i = numAdj - 1, product = undefined; i < arr.length; i++) {
