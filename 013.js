@@ -225,6 +225,16 @@ var self = module.exports = {
 				var numDigits = sum.precision(true);
 				return sum.shift(firstNDigits - numDigits).truncated().toNumber();
 			}
+		},
+		'sum of first n digits + 1': {
+			fn: function(numbers, firstNDigits) {
+				var sum = 0;
+				for (var i = 0; i < numbers.length; i++) {
+					var number = parseInt(numbers[i].substring(0, firstNDigits + 1));
+					sum += number;
+				}
+				return parseInt(sum.toString().substring(0, firstNDigits));
+			}
 		}
 	}
 };
