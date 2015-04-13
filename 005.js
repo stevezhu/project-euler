@@ -6,8 +6,8 @@
 	What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
  */
 
-var utils = require('./utils.js');
-var factors = require('./factors.js');
+var utils = require('lib/utils.js');
+var factors = require('lib/factors.js');
 var _ = require('lodash');
 
 var isDivisibleByRange = function(num, start, end) {

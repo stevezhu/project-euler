@@ -6,8 +6,8 @@
 	Find the sum of all the primes below two million.
  */
 
-var utils = require('./utils.js');
-var primes = require('./primes.js');
+var utils = require('lib/utils.js');
+var primes = require('lib/primes.js');
 
 var self = module.exports = {
 	problemNumber: 10,

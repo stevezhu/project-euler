@@ -6,7 +6,7 @@
 	Find the largest palindrome made from the product of two 3-digit numbers.
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 
 var isPalindrome = function(num) {
 	var numString = num.toString();

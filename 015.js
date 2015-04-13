@@ -6,7 +6,7 @@
 	How many such routes are there through a 20×20 grid?
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 var math = require('mathjs');
 
 // the number of routes through a certain grid while only being able to move to the right or down

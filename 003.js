@@ -6,7 +6,7 @@
 	What is the largest prime factor of the number 600851475143 ?
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 
 var self = module.exports = {
 	problemNumber: 3,

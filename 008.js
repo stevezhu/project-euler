@@ -27,7 +27,7 @@
 	Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 var _ = require('lodash');
 
 var self = module.exports = {

@@ -105,7 +105,7 @@
 		53503534226472524250874054075591789781264330331690
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 var BigNumber = require('bignumber.js');
 
 var self = module.exports = {

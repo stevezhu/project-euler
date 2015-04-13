@@ -20,9 +20,9 @@
 	What is the value of the first triangle number to have over five hundred divisors?
  */
 
-var utils = require('./utils.js');
-var factors = require('./factors.js');
-var primes = require('./primes.js');
+var utils = require('lib/utils.js');
+var factors = require('lib/factors.js');
+var primes = require('lib/primes.js');
 
 var self = module.exports = {
 	problemNumber: 12,

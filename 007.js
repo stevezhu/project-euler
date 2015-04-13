@@ -6,8 +6,8 @@
 	What is the 10,001st prime number?
  */
 
-var utils = require('./utils.js');
-var primes = require('./primes.js');
+var utils = require('lib/utils.js');
+var primes = require('lib/primes.js');
 var _ = require('lodash');
 
 var isPrime = function(num) {

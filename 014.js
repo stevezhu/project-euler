@@ -17,7 +17,7 @@
 	NOTE: Once the chain starts the terms are allowed to go above one million.
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 
 var self = module.exports = {
 	problemNumber: 14,

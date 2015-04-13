@@ -11,7 +11,7 @@
 	Find the product abc.
  */
 
-var utils = require('./utils.js');
+var utils = require('lib/utils.js');
 var math = require('mathjs');
 var PriorityQueue = require('priorityqueuejs');
 

@@ -34,8 +34,8 @@
 
  */
 
-var utils = require('./utils.js');
-var adjacent = require('./adjacent.js');
+var utils = require('lib/utils.js');
+var adjacent = require('lib/adjacent.js');
 var math = require('mathjs');
 
 // loops through each row, column, and diagonal
