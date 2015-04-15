@@ -38,62 +38,6 @@ var utils = require('lib/utils.js');
 var adjacent = require('lib/adjacent.js');
 var math = require('mathjs');
 
-// loops through each row, column, and diagonal
-var eachLinearArray = function(grid, fn) {
-	var colLength = grid.length;
-	var rowLength = grid[0].length;
-
-	// horizontal
-	for (var i = 0; i < colLength; i++) {
-		var arr = [];
-		for (var j = 0; j < rowLength; j++) {
-			arr.push(grid[i][j]);
-		}
-		fn(arr);
-	}
-
-	// vertical
-	for (var j = 0; j < rowLength; j++) {
-		var arr = [];
-		for (var i = 0; i < colLength; i++) {
-			arr.push(grid[i][j]);
-		}
-		fn(arr);
-	}
-
-	// / diagonal
-	for (var i = 0; i < colLength; i++) {
-		var arr = [];
-		for (var j = 0; j <= i; j++) {
-			arr.push(grid[i - j][j]);
-		}
-		fn(arr);
-	}
-	for (var j = 1; j < rowLength; j++) {
-		var arr = [];
-		for (var i = colLength - 1; i >= j; i--) {
-			arr.push(grid[i][j + colLength - i - 1]);
-		}
-		fn(arr);
-	}
-
-	// \ diagonal
-	for (var j = rowLength - 1; j >= 0; j--) {
-		var arr = [];
-		for (var i = 0; i < rowLength - j; i++) {
-			arr.push(grid[i][j + i]);
-		}
-		fn(arr);
-	}
-	for (var i = 1; i < colLength; i++) {
-		var arr = [];
-		for (var j = 0; j < rowLength - i; j++) {
-			arr.push(grid[i + j][j]);
-		}
-		fn(arr);
-	}
-};
-
 var self = module.exports = {
 	problemNumber: 11,
 	description: 'Greatest product of four adjacent numbers in the same direction on the grid',
@@ -124,20 +68,78 @@ var self = module.exports = {
 		4
 	],
 	solutions: {
-		'generating linear arrays': {
-			fn: function(grid, numAdj) {
-				var greatestProduct = 0;
+		'generating linear arrays': (function() {
+			// loops through each row, column, and diagonal
+			var eachLinearArray = function(grid, fn) {
+				var colLength = grid.length;
+				var rowLength = grid[0].length;
 
-				eachLinearArray(grid, function(arr) {
-					var product = adjacent.greatestProduct(arr, numAdj);
-					if (product > greatestProduct) {
-						greatestProduct = product;
+				// horizontal
+				for (var i = 0; i < colLength; i++) {
+					var arr = [];
+					for (var j = 0; j < rowLength; j++) {
+						arr.push(grid[i][j]);
 					}
-				});
+					fn(arr);
+				}
 
-				return greatestProduct;
-			}
-		},
+				// vertical
+				for (var j = 0; j < rowLength; j++) {
+					var arr = [];
+					for (var i = 0; i < colLength; i++) {
+						arr.push(grid[i][j]);
+					}
+					fn(arr);
+				}
+
+				// / diagonal
+				for (var i = 0; i < colLength; i++) {
+					var arr = [];
+					for (var j = 0; j <= i; j++) {
+						arr.push(grid[i - j][j]);
+					}
+					fn(arr);
+				}
+				for (var j = 1; j < rowLength; j++) {
+					var arr = [];
+					for (var i = colLength - 1; i >= j; i--) {
+						arr.push(grid[i][j + colLength - i - 1]);
+					}
+					fn(arr);
+				}
+
+				// \ diagonal
+				for (var j = rowLength - 1; j >= 0; j--) {
+					var arr = [];
+					for (var i = 0; i < rowLength - j; i++) {
+						arr.push(grid[i][j + i]);
+					}
+					fn(arr);
+				}
+				for (var i = 1; i < colLength; i++) {
+					var arr = [];
+					for (var j = 0; j < rowLength - i; j++) {
+						arr.push(grid[i + j][j]);
+					}
+					fn(arr);
+				}
+			};
+
+			return {
+				fn: function(grid, numAdj) {
+					var greatestProduct = 0;
+
+					eachLinearArray(grid, function(arr) {
+						var product = adjacent.greatestProduct(arr, numAdj);
+						if (product > greatestProduct) {
+							greatestProduct = product;
+						}
+					});
+
+					return greatestProduct;
+				}
+			};
+		})(),
 		// assumes square grid
 		'one diagonal loop': {
 			fn: function(grid, numAdj) {

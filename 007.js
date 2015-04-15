@@ -10,15 +10,6 @@ var utils = require('lib/utils.js');
 var primes = require('lib/primes.js');
 var _ = require('lodash');
 
-var isPrime = function(num) {
-	for (var i = 2; i < num; i++) {
-		if (num % i === 0) {
-			return false;
-		}
-	}
-	return true;
-};
-
 var self = module.exports = {
 	problemNumber: 7,
 	description: '10,001st prime number',
@@ -27,19 +18,30 @@ var self = module.exports = {
 	solutions: {
 		// give number as a string
 		// numDigits = number of adjacent digits
-		'brute force': {
-			fn: function(nth) {
-				var prime;
-				for (var num = 2, count = 1; count <= nth; num++) {
-					if (isPrime(num)) {
-						prime = num;
-						count++;
+		'brute force': (function() {
+			var isPrime = function(num) {
+				for (var i = 2; i < num; i++) {
+					if (num % i === 0) {
+						return false;
 					}
 				}
-				return prime;
-			},
-			run: false
-		},
+				return true;
+			};
+
+			return {
+				fn: function(nth) {
+					var prime;
+					for (var num = 2, count = 1; count <= nth; num++) {
+						if (isPrime(num)) {
+							prime = num;
+							count++;
+						}
+					}
+					return prime;
+				},
+				run: false
+			};
+		})(),
 		/***************** FASTER METHODS *****************/
 		'Sieve of Eratosthenes uncached': {
 			fn: function(n) {

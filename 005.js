@@ -10,33 +10,35 @@ var utils = require('lib/utils.js');
 var factors = require('lib/factors.js');
 var _ = require('lodash');
 
-var isDivisibleByRange = function(num, start, end) {
-	for (var i = end; i >= start; i--) {
-		if (num % i !== 0) {
-			return false;
-		}
-	}
-	return true;
-};
-
 var self = module.exports = {
 	problemNumber: 5,
 	description: 'Smallest positive number that is evenly divisible by all of the numbers from 1 to 20',
 	given: [[1, 20]],
 	answer: 232792560,
 	solutions: {
-		'brute force': {
-			// range is an array in the form [start, end]
-			fn: function(range) {
-				var start = range[0];
-				var end = range[1];
-				var num = end;
-				while (!isDivisibleByRange(num, start, end)) {
-					num += end; // add end of range each time because otherwise the number isn't divisible by it
+		'brute force': (function() {
+			var isDivisibleByRange = function(num, start, end) {
+				for (var i = end; i >= start; i--) {
+					if (num % i !== 0) {
+						return false;
+					}
 				}
-				return num;
-			}
-		},
+				return true;
+			};
+
+			return {
+				// range is an array in the form [start, end]
+				fn: function(range) {
+					var start = range[0];
+					var end = range[1];
+					var num = end;
+					while (!isDivisibleByRange(num, start, end)) {
+						num += end; // add end of range each time because otherwise the number isn't divisible by it
+					}
+					return num;
+				}
+			};
+		})(),
 		'prime factorization': {
 			fn: function(range) {
 				var start = range[0];
