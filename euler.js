@@ -42,5 +42,5 @@ var command = commands[argv._[0]];
 if (command) {
 	command();
 } else {
-	console.log('Invalid command.');
+	console.log('Invalid command. Use `run` or `rename`.');
 }
