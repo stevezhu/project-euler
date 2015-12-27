@@ -21,13 +21,18 @@ var renameFiles = function(digits) {
 };
 
 var commands = {
-	run: function() {
+	run: function(number) {
 		var files = fs.readdirSync('./'); // get all files in current dir
-		var dirPattern = /problem-\d+/; // match all problem-* directories
+		var pattern;
+		if (number) {
+			pattern = new RegExp('problem-0*' + number + '$');
+		} else {
+			pattern = /problem-\d+/; // match all problem-* directories
+		}
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
-			if (dirPattern.test(file)) {
-				require(path.resolve('./', file, 'run.js')); // run the file if match success
+			if (pattern.test(file)) {
+				require(path.resolve('./', file, 'run.js'));
 			}
 		}
 	},
@@ -38,7 +43,7 @@ var commands = {
 
 var command = commands[argv._[0]];
 if (command) {
-	command();
+	command.apply(this, argv._.slice(1));
 } else {
 	console.log('Invalid command. Use `run` or `rename`.');
 }
