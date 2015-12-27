@@ -10,13 +10,14 @@
 
 var utils = require('lib/utils.js');
 var fs = require('fs');
+var path = require('path');
 var _ = require('lodash');
 
 var self = module.exports = {
   problemNumber: 22,
   description: 'Total of all name scores in the file',
   answer: 871198282,
-  given: ['names.txt'],
+  given: [path.resolve(__dirname, 'names.txt')],
   solutions: {
     'brute force': {
       fn: (function() {
@@ -27,7 +28,7 @@ var self = module.exports = {
           }, 0) * (index + 1);
         };
         return function(filename) {
-          var names = fs.readFileSync(filename, 'utf8').split(',');
+          var names = fs.readFileSync(path.resolve(__dirname, filename), 'utf8').split(',');
           // remove quotation marks from names
           names = _.map(names, function(name) {
             return name.substring(1, name.length - 1);
