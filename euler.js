@@ -1,6 +1,12 @@
 var fs = require('fs');
 var path = require('path');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2), {
+	default: {
+		benchmark: false
+	}
+});
+
+process.env.BENCHMARK = argv.benchmark;
 
 var renameFiles = function(digits) {
 	var files = fs.readdirSync('./'); // get all files in current dir

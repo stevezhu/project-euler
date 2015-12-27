@@ -17,5 +17,5 @@ node euler.js rename
 
 benchmark
 ```
-BENCHMARK=true node euler.js run
+node euler.js run 1 --benchmark
 ```
