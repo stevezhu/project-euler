@@ -1,17 +1,17 @@
-var _ = require('lodash');
-var math = require('mathjs');
+const _ = require('lodash');
+const math = require('mathjs');
 
-var self = module.exports = {
+let self = module.exports = {
 	/**
 	 * Find the greatest product of the given number of ajacent values in an array
 	 */
 	greatestProduct: function(arr, numAdj) {
-		var greatestProduct;
-		for (var i = numAdj - 1, product = undefined; i < arr.length; i++) {
-			var prev = arr[i - numAdj];
-			var next = arr[i];
+		let greatestProduct;
+		for (let i = numAdj - 1, product = undefined; i < arr.length; i++) {
+			let prev = arr[i - numAdj];
+			let next = arr[i];
 			if (prev === 0 || _.isUndefined(product)) {
-				var adj = arr.slice(i - numAdj + 1, i + 1);
+				let adj = arr.slice(i - numAdj + 1, i + 1);
 				product = math.prod.apply(null, adj);
 			} else {
 				product = product / prev * next;

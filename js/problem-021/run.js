@@ -9,12 +9,12 @@
 	Evaluate the sum of all the amicable numbers under 10000.
  */
 
-var utils = require('lib/utils.js');
-var factors = require('lib/factors.js');
-var _ = require('lodash');
-var math = require('mathjs');
+const utils = require('../lib/utils');
+const factors = require('../lib/factors');
+const _ = require('lodash');
+const math = require('mathjs');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 21,
 	description: 'Sum of all amicable numbers under 10000',
 	answer: 31626,
@@ -23,17 +23,17 @@ var self = module.exports = {
 		'brute force cache': {
 			fn: (function() {
 				// cache
-				var divisorSums = {}; // an object in the form { <number>: <sum of its proper divisors> }
-				var getDivisorSum = function(n) {
+				let divisorSums = {}; // an object in the form { <number>: <sum of its proper divisors> }
+				let getDivisorSum = function(n) {
 					if (!_.has(divisorSums, n)) {
 						divisorSums[n] = factors.sumOfFactors(n) - n;
 					}
 					return divisorSums[n];
 				};
 				return function(max) {
-					var sum = 0;
-					for (var n = 2; n < max; n++) {
-						var divisorSum = getDivisorSum(n);
+					let sum = 0;
+					for (let n = 2; n < max; n++) {
+						let divisorSum = getDivisorSum(n);
 						// if not prime and number does not equal the sum of its proper divisors and is amicable number
 						if (divisorSum !== 1 && n !== divisorSum && n === getDivisorSum(divisorSum)) {
 							sum += n;

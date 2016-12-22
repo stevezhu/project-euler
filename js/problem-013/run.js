@@ -105,10 +105,10 @@
 		53503534226472524250874054075591789781264330331690
  */
 
-var utils = require('lib/utils.js');
-var BigNumber = require('bignumber.js');
+const utils = require('../lib/utils');
+const BigNumber = require('bignumber.js');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 13,
 	description: 'First ten digits of the sum of the one-hundred 50-digit numbers',
 	answer: 5537376230,
@@ -220,19 +220,19 @@ var self = module.exports = {
 	solutions: {
 		'bignum sum': {
 			fn: function(numbers, firstNDigits) {
-				var sum = new BigNumber(0);
-				for (var i = 0; i < numbers.length; i++) {
+				let sum = new BigNumber(0);
+				for (let i = 0; i < numbers.length; i++) {
 					sum = sum.plus(numbers[i]);
 				}
-				var numDigits = sum.precision(true);
+				let numDigits = sum.precision(true);
 				return sum.shift(firstNDigits - numDigits).truncated().toNumber();
 			}
 		},
 		'sum of first n digits + 1': {
 			fn: function(numbers, firstNDigits) {
-				var sum = 0;
-				for (var i = 0; i < numbers.length; i++) {
-					var number = parseInt(numbers[i].substring(0, firstNDigits + 1));
+				let sum = 0;
+				for (let i = 0; i < numbers.length; i++) {
+					let number = parseInt(numbers[i].substring(0, firstNDigits + 1));
 					sum += number;
 				}
 				return parseInt(sum.toString().substring(0, firstNDigits));

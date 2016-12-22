@@ -11,28 +11,28 @@
 	Find the product abc.
  */
 
-var utils = require('lib/utils.js');
-var math = require('mathjs');
-var PriorityQueue = require('priorityqueuejs');
+const utils = require('../lib/utils');
+const math = require('mathjs');
+const PriorityQueue = require('priorityqueuejs');
 
-var matrixA = [
+let matrixA = [
 	[1, -2, 2],
 	[2, -1, 2],
 	[2, -2, 3]
 ];
-var matrixB = [
+let matrixB = [
 	[1, 2, 2],
 	[2, 1, 2],
 	[2, 2, 3]
 ];
-var matrixC = [
+let matrixC = [
 	[-1, 2, 2],
 	[-2, 1, 2],
 	[-2, 2, 3]
 ];
-var matrices = [matrixA, matrixB, matrixC];
+let matrices = [matrixA, matrixB, matrixC];
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 9,
 	description: 'Product abc of Pythagorean triplet for which a + b + c = 1000',
 	given: [1000],
@@ -41,14 +41,14 @@ var self = module.exports = {
 		// tree of primitive Pythagorean triples
 		'matrix multiplication': {
 			fn: function(sum) {
-				var triples = new PriorityQueue(function(a, b) {
+				let triples = new PriorityQueue(function(a, b) {
 					return b.sum - a.sum;
 				});
 				triples.enq({values: [3, 4, 5], sum: 12}); // start with smallest triple
 				for (var triple = triples.deq(), s = triple.sum; sum > s && sum % s !== 0; triple = triples.deq(), s = triple.sum) {
 					// generate triples
-					for (var i = 0; i < matrices.length; i++) {
-						var values = math.multiply(matrices[i], triple.values);
+					for (let i = 0; i < matrices.length; i++) {
+						let values = math.multiply(matrices[i], triple.values);
 						triples.enq({
 							values: values,
 							sum: math.sum.apply(null, values)

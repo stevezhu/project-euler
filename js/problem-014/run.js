@@ -17,9 +17,9 @@
 	NOTE: Once the chain starts the terms are allowed to go above one million.
  */
 
-var utils = require('lib/utils.js');
+const utils = require('../lib/utils');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 14,
 	description: 'The starting number, under one million, that produces the longest Collatz sequence',
 	answer: 837799,
@@ -27,11 +27,11 @@ var self = module.exports = {
 	solutions: {
 		'brute force': {
 			fn: function(limit) {
-				var greatestCount = 0;
-				var greatestStartingNumber = 1;
-				for (var n = 1; n < limit; n++) {
-					var curr = n;
-					var count = 1; // count starts at 1 because it already includes the starting number, `n`
+				let greatestCount = 0;
+				let greatestStartingNumber = 1;
+				for (let n = 1; n < limit; n++) {
+					let curr = n;
+					let count = 1; // count starts at 1 because it already includes the starting number, `n`
 					while (curr != 1) {
 						if (curr % 2 === 0) { // even
 							curr = curr / 2;
@@ -53,12 +53,12 @@ var self = module.exports = {
 		},
 		'brute force cached': {
 			fn: function(limit) {
-				var cache = [];
-				var greatestCount = 0;
-				var greatestStartingNumber = 1;
-				for (var n = 1; n < limit; n++) {
-					var curr = n;
-					var count = 1; // count starts at 1 because it already includes the starting number, `n`
+				let cache = [];
+				let greatestCount = 0;
+				let greatestStartingNumber = 1;
+				for (let n = 1; n < limit; n++) {
+					let curr = n;
+					let count = 1; // count starts at 1 because it already includes the starting number, `n`
 					while (curr != 1) {
 						if (cache[curr]) {
 							count += cache[curr];

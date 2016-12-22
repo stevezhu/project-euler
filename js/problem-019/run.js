@@ -15,9 +15,9 @@
 	How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
  */
 
-var utils = require('lib/utils.js');
+const utils = require('../lib/utils');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 19,
 	description: 'Number of Sundays that fell on the first of the month during the twentieth century',
 	answer: 171,
@@ -25,15 +25,15 @@ var self = module.exports = {
 	solutions: {
 		'check day of week': {
 			fn: (function() {
-				var startDate = new Date(1900, 1, 1);
-				var millisPerDay = 86400000;
-				var daysPerWeek = 7;
-				var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+				let startDate = new Date(1900, 1, 1);
+				let millisPerDay = 86400000;
+				let daysPerWeek = 7;
+				let weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 				return function(nthCentury) {
-					var count = 0;
-					for (var year = (nthCentury - 1) * 100 + 1; year <= nthCentury * 100; year++) {
-						for (var month = 1; month <= 12; month++) {
-							var date = new Date(year, month, 1); // first of the month
+					let count = 0;
+					for (let year = (nthCentury - 1) * 100 + 1; year <= nthCentury * 100; year++) {
+						for (let month = 1; month <= 12; month++) {
+							let date = new Date(year, month, 1); // first of the month
 							if (weekdays[date.getDay()] === 'Sunday') {
 								count++;
 							}

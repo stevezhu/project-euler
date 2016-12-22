@@ -6,29 +6,29 @@
 	Find the largest palindrome made from the product of two 3-digit numbers.
  */
 
-var utils = require('lib/utils.js');
+const utils = require('../lib/utils');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 4,
 	description: 'Largest palindrome made from the product of two 3-digit numbers',
 	given: [3],
 	answer: 906609,
 	solutions: {
 		'solution': (function() {
-			var isPalindrome = function(num) {
-				var numString = num.toString();
-				var numStringReversed = numString.split('').reverse().join('');
+			let isPalindrome = function(num) {
+				let numString = num.toString();
+				let numStringReversed = numString.split('').reverse().join('');
 				return numString === numStringReversed;
 			};
 
 			return {
 				fn: function(digits) {
-					var min = Math.pow(10, digits - 1);
-					var max = Math.pow(10, digits);
-					var palindrome;
-					for (var i = min; i < max; i++) {
-						for (var j = i; j < max; j++) {
-							var product = i * j;
+					let min = Math.pow(10, digits - 1);
+					let max = Math.pow(10, digits);
+					let palindrome;
+					for (let i = min; i < max; i++) {
+						for (let j = i; j < max; j++) {
+							let product = i * j;
 							if ((!palindrome || product > palindrome) && isPalindrome(product)) {
 								palindrome = product;
 							}

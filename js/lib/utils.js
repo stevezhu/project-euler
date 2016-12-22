@@ -1,15 +1,21 @@
-var _ = require('lodash');
-var chalk = require('chalk');
-var Benchmark = require('benchmark');
+const _ = require('lodash');
+const chalk = require('chalk');
+const Benchmark = require('benchmark');
 
-var CORRECT = chalk.green('✓');
-var INCORRECT = chalk.red('✗');
+let CORRECT = chalk.green('✓');
+let INCORRECT = chalk.red('✗');
+
+if (_.isUndefined(process.env.BENCHMARK)) {
+  process.env.BENCHMARK = false;
+} else {
+  process.env.BENCHMARK = JSON.parse(process.env.BENCHMARK);
+}
 
 /**
  * runs if solution.run is true
  * only benchmarks if solution.run and solution.benchmark are both true
  */
-var self = module.exports = {
+let self = module.exports = {
 	normalizeSolution: function(solution, problem) {
 		// BENCHMARK
 		if (!_.has(solution, 'benchmark')) {
@@ -33,10 +39,10 @@ var self = module.exports = {
 		return solution;
 	},
 	logAndCheckSolution: function(name, problem) {
-		var problemNumber = problem.problemNumber;
-		var description = problem.description;
-		var answer = problem.solutions[name].run();
-		var correctAnswer = problem.answer;
+		let problemNumber = problem.problemNumber;
+		let description = problem.description;
+		let answer = problem.solutions[name].run();
+		let correctAnswer = problem.answer;
 		if (_.size(problem.solutions) > 1) {
 			description += ' : ' + name;
 		}
@@ -53,7 +59,7 @@ var self = module.exports = {
 	},
 	benchmarkSolutions: function(problem) {
 		if (JSON.parse(process.env.BENCHMARK)) {
-			var suite = new Benchmark.Suite;
+			let suite = new Benchmark.Suite;
 			_.reduce(problem.solutions, function(result, solution, name) {
 				self.normalizeSolution(solution, problem);
 				if (solution.run && solution.benchmark) {

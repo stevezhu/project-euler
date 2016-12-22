@@ -27,10 +27,10 @@
 	Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
  */
 
-var utils = require('lib/utils.js');
-var _ = require('lodash');
+const utils = require('../lib/utils');
+const _ = require('lodash');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 8,
 	description: 'Product of the thirteen adjacent digits in the 1000-digit number that have the greatest product',
 	given: [
@@ -47,14 +47,14 @@ var self = module.exports = {
 					console.log('The number of adjacent digits can not be greater than the number of digits in the number')
 					return;
 				}
-				var product;
-				var greatestProduct = 0;
-				for (var i = numDigits - 1; i < number.length; i++) {
-					var prevDigit = parseInt(number[i - numDigits]);
-					var nextDigit = parseInt(number[i]);
+				let product;
+				let greatestProduct = 0;
+				for (let i = numDigits - 1; i < number.length; i++) {
+					let prevDigit = parseInt(number[i - numDigits]);
+					let nextDigit = parseInt(number[i]);
 					if (prevDigit === 0 || _.isUndefined(product)) {
 						product = 1;
-						for (var j = i - numDigits + 1; j <= i; j++) {
+						for (let j = i - numDigits + 1; j <= i; j++) {
 							product *= parseInt(number[j]);
 						}
 					} else {

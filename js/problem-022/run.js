@@ -8,12 +8,12 @@
   What is the total of all the name scores in the file?
  */
 
-var utils = require('lib/utils.js');
-var fs = require('fs');
-var path = require('path');
-var _ = require('lodash');
+const utils = require('../lib/utils');
+const fs = require('fs');
+const path = require('path');
+const _ = require('lodash');
 
-var self = module.exports = {
+let self = module.exports = {
   problemNumber: 22,
   description: 'Total of all name scores in the file',
   answer: 871198282,
@@ -22,7 +22,7 @@ var self = module.exports = {
     'brute force': {
       fn: (function() {
         // the index of the name in the array
-        var calculateNameScore = function(name, index) {
+        function calculateNameScore(name, index) {
           return _.reduce(name, function(total, letter) {
             return total + (letter.charCodeAt(0) - 'A'.charCodeAt(0)) + 1;
           }, 0) * (index + 1);

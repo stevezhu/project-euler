@@ -6,21 +6,21 @@
 	How many such routes are there through a 20×20 grid?
  */
 
-var utils = require('lib/utils.js');
-var math = require('mathjs');
+const utils = require('../lib/utils');
+const math = require('mathjs');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 15,
 	description: 'The number of routes through a 20x20 grid',
 	answer: 137846528820,
 	given: [20],
 	solutions: {
 		'count with cache': (function() {
-			var cache = {};
+			let cache = {};
 			// the number of routes through a certain grid while only being able to move to the right or down
-			var numRoutes = function(width, height) {
-				var coord = width + ',' + height; // coordinates
-				var routes;
+			let numRoutes = function(width, height) {
+				let coord = width + ',' + height; // coordinates
+				let routes;
 				if (cache[coord]) {
 					return cache[coord];
 				} else {

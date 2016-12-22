@@ -14,9 +14,9 @@
 	Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
  */
 
-var utils = require('lib/utils.js');
+const utils = require('../lib/utils');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 6,
 	description: 'Difference between the sum of the squares of the first one hundred natural numbers and the square of the sum',
 	given: [100],
@@ -24,22 +24,22 @@ var self = module.exports = {
 	solutions: {
 		'brute force': {
 			fn: function(n) {
-				var sum = 0;
-				var sumOfSquares = 0;
-				for (var i = 1; i <= n; i++) {
+				let sum = 0;
+				let sumOfSquares = 0;
+				for (let i = 1; i <= n; i++) {
 					sum += i;
 					sumOfSquares += i * i;
 				}
-				var squareOfSum = sum * sum;
-				var difference = Math.abs(sumOfSquares - squareOfSum);
+				let squareOfSum = sum * sum;
+				let difference = Math.abs(sumOfSquares - squareOfSum);
 				return difference;
 			}
 		},
 		'induction': {
 			fn: function(n) {
-				var sumOfSquares = Math.pow(n * (n + 1) / 2, 2);
-				var squareOfSum = n * (n + 1) * (2 * n + 1) / 6;
-				var difference = Math.abs(sumOfSquares - squareOfSum);
+				let sumOfSquares = Math.pow(n * (n + 1) / 2, 2);
+				let squareOfSum = n * (n + 1) * (2 * n + 1) / 6;
+				let difference = Math.abs(sumOfSquares - squareOfSum);
 				return difference;
 			}
 		}

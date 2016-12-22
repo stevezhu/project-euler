@@ -8,9 +8,9 @@
 	By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  */
 
-var utils = require('lib/utils.js');
+const utils = require('../lib/utils');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 2,
 	description: 'Sum of even terms in the Fibonacci sequence whose values do not exceed four million',
 	given: [4000000],
@@ -18,11 +18,11 @@ var self = module.exports = {
 	solutions: {
 		'solution': {
 			fn: function(max) {
-				var sum = 0;
-				var prevFibNum = 1;
-				var currentFibNum = 1;
+				let sum = 0;
+				let prevFibNum = 1;
+				let currentFibNum = 1;
 				while (currentFibNum < max) {
-					var tempSum = currentFibNum + prevFibNum;
+					let tempSum = currentFibNum + prevFibNum;
 					prevFibNum = currentFibNum;
 					currentFibNum = tempSum;
 					if (currentFibNum % 2 === 0) {

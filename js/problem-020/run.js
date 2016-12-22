@@ -9,10 +9,10 @@
 	Find the sum of the digits in the number 100!
  */
 
-var utils = require('lib/utils.js');
-var BigNumber = require('bignumber.js');
+const utils = require('../lib/utils');
+const BigNumber = require('bignumber.js');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 20,
 	description: 'Sum of the digits in the number 100!',
 	answer: 648,
@@ -20,18 +20,18 @@ var self = module.exports = {
 	solutions: {
 		'brute force': {
 			fn: (function() {
-				var factorial = function(n) {
-					var product = new BigNumber(1);
-					for (var i = 2; i <= n; i++) {
+				let factorial = function(n) {
+					let product = new BigNumber(1);
+					for (let i = 2; i <= n; i++) {
 						product = product.mul(i);
 					}
 					return product;
 				};
 				return function(n) {
-					var factorialString = factorial(n).toFixed();
-					var sum = 0;
-					for (var i = 0; i < factorialString.length; i++) {
-						var digit = parseInt(factorialString[i]);
+					let factorialString = factorial(n).toFixed();
+					let sum = 0;
+					for (let i = 0; i < factorialString.length; i++) {
+						let digit = parseInt(factorialString[i]);
 						sum += digit;
 					}
 					return sum;

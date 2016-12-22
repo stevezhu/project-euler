@@ -31,10 +31,10 @@
 	NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route. However, Problem 67, is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)
  */
 
-var utils = require('lib/utils.js');
-var _ = require('lodash');
+const utils = require('../lib/utils');
+const _ = require('lodash');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 18,
 	description: 'Maximum total from top to bottom of the triangle',
 	answer: 1074,
@@ -61,12 +61,12 @@ var self = module.exports = {
 		'add max value between children to parent': {
 			fn: function(triangleArray) {
 				triangleArray = _.cloneDeep(triangleArray);
-				for (var i = triangleArray.length - 1; i > 0; i--) { // do up to, but not including the very top row
-					var row = triangleArray[i];
-					var prevRow = triangleArray[i - 1];
-					for (var j = 0; j < row.length - 1; j++) { // for each two adjacent elements in the row
-						var a = row[j]; // first element
-						var b = row[j + 1]; // second element
+				for (let i = triangleArray.length - 1; i > 0; i--) { // do up to, but not including the very top row
+					let row = triangleArray[i];
+					let prevRow = triangleArray[i - 1];
+					for (let j = 0; j < row.length - 1; j++) { // for each two adjacent elements in the row
+						let a = row[j]; // first element
+						let b = row[j + 1]; // second element
 						prevRow[j] += Math.max(a, b); // add the greater element to the parent element
 					}
 				}

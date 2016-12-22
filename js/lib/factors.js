@@ -1,8 +1,8 @@
-var _ = require('lodash');
-var math = require('mathjs');
-var primes = require('./primes.js');
+const _ = require('lodash');
+const math = require('mathjs');
+const primes = require('./primes.js');
 
-var self = module.exports = {};
+let self = module.exports = {};
 
 /**
  * @param  {Number} n
@@ -10,7 +10,7 @@ var self = module.exports = {};
  * @return {Number} The number of times `n` is divisible by `factor`
  */
 self.countFactor = function(n, factor) {
-	var count = 0;
+	let count = 0;
 	while (factor <= n && n % factor === 0) {
 		n /= factor;
 		count++;
@@ -24,8 +24,8 @@ self.countFactor = function(n, factor) {
  * @param {Function} fn function(factor, count)
  */
 self.eachPrimeFactor = function(n, fn) {
-	for (var factor = 2; factor <= n; factor++) {
-		var count = self.countFactor(n, factor);
+	for (let factor = 2; factor <= n; factor++) {
+		let count = self.countFactor(n, factor);
 		if (count > 0) {
 			fn(factor, count);
 			n /= Math.pow(factor, count);
@@ -42,7 +42,7 @@ self.eachPrimeFactor = function(n, fn) {
  * @return {Number} number of factors
  */
 self.countFactors = function(n) {
-	var factors = 1;
+	let factors = 1;
 	self.eachPrimeFactor(n, function(factor, count) {
 		factors *= count + 1;
 	});
@@ -50,9 +50,9 @@ self.countFactors = function(n) {
 };
 
 self.primeFactorization = function(n) {
-	var factors = [];
+	let factors = [];
 	self.eachPrimeFactor(n, function(factor, count) {
-		for (var i = 0; i < count; i++) {
+		for (let i = 0; i < count; i++) {
 			factors.push(factor);
 		}
 	});
@@ -61,10 +61,10 @@ self.primeFactorization = function(n) {
 
 // http://mathforum.org/library/drmath/view/71550.html
 self.sumOfFactors = function(n) {
-	var prod = 1;
+	let prod = 1;
 	self.eachPrimeFactor(n, function(factor, count) {
-		var sum = 0;
-		for (var i = 1, c = 0; c <= count; i *= factor, c++) {
+		let sum = 0;
+		for (let i = 1, c = 0; c <= count; i *= factor, c++) {
 			sum += i;
 		}
 		prod *= sum;
@@ -79,18 +79,18 @@ self.sumOfProperFactors = function(n) {
 // http://en.wikipedia.org/wiki/Partition_%28number_theory%29
 // http://www.geeksforgeeks.org/generate-unique-partitions-of-an-integer/
 // http://ideone.com/SGyL2h
-var partitionR = function(arr, n, max, index, fn) {
+let partitionR = function(arr, n, max, index, fn) {
 	if (n === 0) {
 		fn(arr);
 	}
-	for (var i = max; i > 0; i--) {
+	for (let i = max; i > 0; i--) {
 		if (i <= n) {
 			arr[index] = i;
 			partitionR(arr, n - i, i, index + 1, fn);
 		}
 	}
 };
-var eachPartition = function(n, fn) {
+let eachPartition = function(n, fn) {
 	partitionR([], n, n, 0, fn);
 };
 
@@ -100,10 +100,10 @@ var eachPartition = function(n, fn) {
  * @return {Number}		the smallest number with `n` factors
  */
 self.smallestNumberWithNFactors = function(n) {
-	var primeFactorization = [];
-	var numTwos = 0; // the number of factors that are equal to 2
+	let primeFactorization = [];
+	let numTwos = 0; // the number of factors that are equal to 2
 	self.eachPrimeFactor(n, function(factor, count) {
-		for (var i = 0; i < count; i++) {
+		for (let i = 0; i < count; i++) {
 			if (factor === 2) {
 				numTwos++;
 			} else {
@@ -112,7 +112,7 @@ self.smallestNumberWithNFactors = function(n) {
 		}
 	});
 
-	var primesList = primes.sieve(primes.nthPrime(primeFactorization.length + numTwos));
+	let primesList = primes.sieve(primes.nthPrime(primeFactorization.length + numTwos));
 
 	if (n % 2 !== 0) { // if odd
 		// eg. n = 15
@@ -120,21 +120,21 @@ self.smallestNumberWithNFactors = function(n) {
 		// return 2^(5-1) * 3^(3-1) = 2^4 * 3^2
 		return _.reduce(primeFactorization, function(result, primeFactor, i) {
 			// length - i because we need the prime factorization in decreasing order
-			var prime = primesList[primeFactorization.length - i];
+			let prime = primesList[primeFactorization.length - i];
 			return result * Math.pow(prime, primeFactor - 1);
 		}, 1);
 	} else { // if even
-		var values = []; // product of primes with the factors - 1 as exponents
+		let values = []; // product of primes with the factors - 1 as exponents
 		eachPartition(numTwos, function(p) {
-			var arr = primeFactorization.slice();
-			for (var i = 0; i < p.length; i++) {
+			let arr = primeFactorization.slice();
+			for (let i = 0; i < p.length; i++) {
 				arr.push(Math.pow(2, p[i]));
 			}
 			arr = _.sortBy(arr, function(n) {
 				return -n;
 			});
-			var val = 1;
-			for (var i = 0; i < arr.length; i++) {
+			let val = 1;
+			for (let i = 0; i < arr.length; i++) {
 				// i + 1 for primesList because the 0th item is not the first prime
 				val *= Math.pow(primesList[i + 1], arr[i] - 1);
 			}

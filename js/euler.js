@@ -1,6 +1,6 @@
-var fs = require('fs');
-var path = require('path');
-var argv = require('minimist')(process.argv.slice(2), {
+const fs = require('fs');
+const path = require('path');
+const argv = require('minimist')(process.argv.slice(2), {
 	default: {
 		benchmark: false
 	}
@@ -8,16 +8,16 @@ var argv = require('minimist')(process.argv.slice(2), {
 
 process.env.BENCHMARK = argv.benchmark;
 
-var renameFiles = function(digits) {
-	var files = fs.readdirSync('./'); // get all files in current dir
-	var dirPattern = /problem-(0*)?(\d+)$/; // match and retrieve the problem number without leading zeroes
-	for (var i = 0; i < files.length; i++) {
-		var file = files[i];
-		var match = file.match(dirPattern);
+let renameFiles = function(digits) {
+	let files = fs.readdirSync('./'); // get all files in current dir
+	let dirPattern = /problem-(0*)?(\d+)$/; // match and retrieve the problem number without leading zeroes
+	for (let i = 0; i < files.length; i++) {
+		let file = files[i];
+		let match = file.match(dirPattern);
 		if (match !== null) {
-			var num = match[2];
-			var newDir = 'problem-';
-			for (var j = num.length; j < digits; j++) { // prepend 0's
+			let num = match[2];
+			let newDir = 'problem-';
+			for (let j = num.length; j < digits; j++) { // prepend 0's
 				newDir += '0';
 			}
 			newDir += num;
@@ -26,17 +26,17 @@ var renameFiles = function(digits) {
 	}
 };
 
-var commands = {
+let commands = {
 	run: function(number) {
-		var files = fs.readdirSync('./'); // get all files in current dir
-		var pattern;
+		let files = fs.readdirSync('./'); // get all files in current dir
+		let pattern;
 		if (number) {
 			pattern = new RegExp('problem-0*' + number + '$');
 		} else {
 			pattern = /problem-\d+/; // match all problem-* directories
 		}
-		for (var i = 0; i < files.length; i++) {
-			var file = files[i];
+		for (let i = 0; i < files.length; i++) {
+			let file = files[i];
 			if (pattern.test(file)) {
 				require(path.resolve('./', file, 'run.js'));
 			}
@@ -47,7 +47,7 @@ var commands = {
 	}
 };
 
-var command = commands[argv._[0]];
+let command = commands[argv._[0]];
 if (command) {
 	command.apply(this, argv._.slice(1));
 } else {

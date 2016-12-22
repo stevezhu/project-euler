@@ -6,10 +6,10 @@
 	What is the sum of the digits of the number 2^1000?
  */
 
-var utils = require('lib/utils.js');
-var BigNumber = require('bignumber.js');
+const utils = require('../lib/utils');
+const BigNumber = require('bignumber.js');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 16,
 	description: 'Sum of the digits of the number 2^1000',
 	answer: 1366,
@@ -17,14 +17,14 @@ var self = module.exports = {
 	solutions: {
 		'brute force': {
 			fn: function(base, exponent) {
-				var product = new BigNumber(1);
-				for (var i = 0; i < exponent; i++) {
+				let product = new BigNumber(1);
+				for (let i = 0; i < exponent; i++) {
 					product = product.mul(base);
 				}
 				product = product.toFixed(); // string
 
-				var sum = 0;
-				for (var i = 0; i < product.length; i++) {
+				let sum = 0;
+				for (let i = 0; i < product.length; i++) {
 					sum += parseInt(product[i]);
 				}
 				return sum;

@@ -6,10 +6,10 @@
 	Find the sum of all the primes below two million.
  */
 
-var utils = require('lib/utils.js');
-var primes = require('lib/primes.js');
+const utils = require('../lib/utils');
+const primes = require('../lib/primes');
 
-var self = module.exports = {
+let self = module.exports = {
 	problemNumber: 10,
 	description: 'Sum of all the primes below two million',
 	answer: 142913828922,
@@ -17,9 +17,9 @@ var self = module.exports = {
 	solutions: {
 		'solution': {
 			fn: function(max) {
-				var primesList = primes.sieve(max);
-				var sum = 0;
-				for (var i = 1; i < primesList.length; i++) {
+				let primesList = primes.sieve(max);
+				let sum = 0;
+				for (let i = 1; i < primesList.length; i++) {
 					sum += primesList[i];
 				}
 				return sum;

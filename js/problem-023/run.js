@@ -10,12 +10,12 @@ As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest numb
 Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 */
 
-var utils = require('lib/utils.js');
-var factors = require('lib/factors.js');
-var fs = require('fs');
-var _ = require('lodash');
+const utils = require('../lib/utils');
+const factors = require('../lib/factors');
+const fs = require('fs');
+const _ = require('lodash');
 
-var self = module.exports = {
+let self = module.exports = {
   problemNumber: 23,
   description: 'Sum of all the positive integers which cannot be written as the sum of two abundant numbers',
   answer: 4179871,
@@ -23,20 +23,20 @@ var self = module.exports = {
   solutions: {
     'brute force': {
       fn: (function() {
-        var SMALLEST_ABUNDANT_NUM = 12;
-        var UPPER_BOUND = 28123; // all integers greater than 28123 can be written as the sum of two abundant numbers
+        let SMALLEST_ABUNDANT_NUM = 12;
+        let UPPER_BOUND = 28123; // all integers greater than 28123 can be written as the sum of two abundant numbers
         return function() {
-          var abundantNumbers = [];
-          for (var num = SMALLEST_ABUNDANT_NUM; num < UPPER_BOUND; num++) { // 12 is the smallest abundant number
+          let abundantNumbers = [];
+          for (let num = SMALLEST_ABUNDANT_NUM; num < UPPER_BOUND; num++) { // 12 is the smallest abundant number
             if (factors.sumOfProperFactors(num) > num) {
               abundantNumbers.push(num);
             }
           }
 
-          var numberSums = []; // positive integers that are the sum of two abundant numbers
-          for (var i = 0; i < abundantNumbers.length; i++) {
-            for (var j = i; j < abundantNumbers.length; j++) {
-              var numberSum = abundantNumbers[i] + abundantNumbers[j];
+          let numberSums = []; // positive integers that are the sum of two abundant numbers
+          for (let i = 0; i < abundantNumbers.length; i++) {
+            for (let j = i; j < abundantNumbers.length; j++) {
+              let numberSum = abundantNumbers[i] + abundantNumbers[j];
               if (numberSum <= UPPER_BOUND) {
                 numberSums.push(numberSum);
               }
