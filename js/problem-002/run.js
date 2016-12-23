@@ -22,12 +22,12 @@ let self = module.exports = {
 				let prevFibNum = 1;
 				let currentFibNum = 1;
 				while (currentFibNum < max) {
-					let tempSum = currentFibNum + prevFibNum;
-					prevFibNum = currentFibNum;
-					currentFibNum = tempSum;
 					if (currentFibNum % 2 === 0) {
 						sum += currentFibNum;
 					}
+					let tempSum = currentFibNum + prevFibNum;
+					prevFibNum = currentFibNum;
+					currentFibNum = tempSum;
 				}
 				return sum;
 			}
